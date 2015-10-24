@@ -19,12 +19,12 @@ import javax.crypto.spec.IvParameterSpec;
  */
 
 public class FileEncrypt {
-    private static final String PASSKEY = "A6548EW4";
+    //private static final String PASSKEY = "A6548EW4";
     private static final String DESKEY = "WE65R466";
     /**
      * mode 加密模式  加密：Cipher.ENCRYPT_MODE 解密：Cipher.DECRYPT_MODE
      */
-    public void encoderOrdecoder(String FilePath, int mode) {
+    public void encoderOrdecoder(String FilePath, int mode,String PASSKEY) {
 
         InputStream is = null;
         OutputStream out = null;
@@ -75,6 +75,7 @@ public class FileEncrypt {
         FileEncrypt des=new FileEncrypt();
         Scanner in=new Scanner(System.in);
         String filePath=in.nextLine();
-        des.encoderOrdecoder(filePath,Cipher.DECRYPT_MODE);
+        String passkey=in.nextLine();
+        des.encoderOrdecoder(filePath,Cipher.DECRYPT_MODE,passkey);
     }
 }

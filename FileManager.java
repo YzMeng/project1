@@ -153,11 +153,15 @@ public class FileManager {
                     break;
                 case "encrypt":
                     String enf = manager.isCurrFile(orders[1]);
-                    manager.fileencrypt.encoderOrdecoder(enf, Cipher.ENCRYPT_MODE);
+                    System.out.println("请输入八位密码,如lwo66w54");
+                    String enpasskey=in.nextLine();
+                    manager.fileencrypt.encoderOrdecoder(enf, Cipher.ENCRYPT_MODE,enpasskey);
                     break;
                 case "decrypt":
                     String def = manager.isCurrFile(orders[1]);
-                    manager.fileencrypt.encoderOrdecoder(def, Cipher.DECRYPT_MODE);
+                    System.out.println("请输入八位密码:");
+                    String depasskey=in.nextLine();
+                    manager.fileencrypt.encoderOrdecoder(def, Cipher.DECRYPT_MODE,depasskey);
                     break;
                 case "help":
                     manager.help();
