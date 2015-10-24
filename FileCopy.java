@@ -49,8 +49,8 @@ public class FileCopy {
 
     public void copyDirectiory(String sourceDir, String targetDir)
             throws IOException {
-        // 新建目标目录
-        (new File(targetDir)).mkdirs();
+        targetDir=targetDir+File.separator+sourceDir.substring(sourceDir.lastIndexOf("/")+1);
+                (new File(targetDir)).mkdirs();
         // 获取源文件夹当前下的文件或目录
         File[] file = (new File(sourceDir)).listFiles();
         for (int i = 0; i < file.length; i++) {

@@ -13,6 +13,7 @@ public class FileOperation {
         }
     }
     public void DeleteFile(File path) {
+        if(path.isDirectory()){
         File filelist[] = path.listFiles();
         int listlength = filelist.length;
         for (int i = 0; i < listlength; i++) {
@@ -22,10 +23,14 @@ public class FileOperation {
                 filelist[i].delete();
             }
         }
-        path.delete();
+        path.delete();}else{
+            path.delete();
+        }
     }
     public static void main(String[] args){
-        FileOperation create=new FileOperation();
-        create.CreateFile("/Users/myz/Desktop/test/test1/test2/test3");
+//        FileOperation create=new FileOperation();
+//        create.CreateFile("/Users/myz/Desktop/test/test1/test2/test3");
+        File test=new File("/Users/myz/Desktop/yhf.zip");
+        System.out.println(test.listFiles().length);
     }
 }

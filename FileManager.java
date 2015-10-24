@@ -22,9 +22,16 @@ public class FileManager {
     }
 
     public void help() {
-        System.out.println("文件列表:ls            e.g. ls");
-        System.out.println("压缩文件:zip           e.g. zip dir filename");
-        System.out.println("解压文件:dezip         e.g. dezip filename dir");
+        System.out.println("[]中为可选内容");
+        System.out.println("文件夹进入:cd          e.g. cd path");
+        System.out.println("文件列表:ls            e.g. ls [path]");
+        System.out.println("文件夹创建:mkdir       e.g. mkdir foldername");
+        System.out.println("文件或文件夹删除:rm     e.g. rm filepath");
+        System.out.println("文件或文件夹复制:cp     e.g. cp sourcepath targetpath");
+        System.out.println("文件或文件夹压缩:zip    e.g. zip sourcepath [targetpath]");
+        System.out.println("文件解压:dezip         e.g. dezip sourcepath [targetpath]");
+        System.out.println("文件加密:encrypt       e.g. encrypt filepath");
+        System.out.println("文件解密:decrypt       e.g. decrypt filepath");
     }
 
     public String isCurrFile(String path) {
@@ -117,30 +124,30 @@ public class FileManager {
                     if (new File(cpsource).isDirectory()) {
                         manager.filecopy.copyDirectiory(cpsource, cptarget);
                     } else {
-                        manager.filecopy.copyFile(new File(cpsource),new File(cptarget));
+                        manager.filecopy.copyFile(new File(cpsource),new File(cptarget+File.separator+cpsource.substring(cpsource.lastIndexOf("/")+1)));
                     }
                     break;
                 case "zip":
                     String zipsource = manager.isCurrFile(orders[1]);
-                    String ziptarget = manager.isCurrFile(orders[2]);
+
                     if (orders.length == 2) {
                         manager.filecompress.MultiZipCompress(zipsource, zipsource + ".zip");
                     }
                     if (orders.length == 3) {
-                        manager.filecompress.MultiZipCompress(zipsource, ziptarget);
+                        String ziptarget = manager.isCurrFile(orders[2]);
+                        if(ziptarget.endsWith(".zip")){
+                        manager.filecompress.MultiZipCompress(zipsource, ziptarget);}else{
+                            System.out.println("请输入完整压缩文件名.如命令:zip eg eg.zip");
+                        }
                     }
                     break;
                 case "dezip":
                     String sf = manager.isCurrFile(orders[1]);
-                    System.out.println(sf);
-                    //System.out.println(manager.currpath+File.separator+sf.substring(sf.lastIndexOf("/")+1,sf.lastIndexOf(".")));
                     if (orders.length == 2) {
-                        System.out.println("2 ok");
                         manager.filecompress.ZipDecompress(sf, manager.currpath);
                     }
                     if (orders.length == 3) {
                         String df = manager.isCurrFile(orders[2]);
-                        System.out.println(df);
                         manager.filecompress.ZipDecompress(sf, df);
                     }
                     break;
@@ -157,9 +164,6 @@ public class FileManager {
                     break;
                 case "exit":
                     return;
-                case "curr":
-                    manager.curr();
-                    break;
                 default:
                     System.out.println("Error Order");
                     manager.help();
